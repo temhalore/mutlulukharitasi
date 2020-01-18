@@ -76,13 +76,13 @@ class Form extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             } else {
                 const source = { uri: response.uri };
-              //  const source = { uri: 'data:image/jpeg;base64,' + response.data };
+                //const source ={ uri: 'data:image/jpeg;base64,' + response.data };
 
                 // You can also display the image using data:
                 // const source = { uri: 'data:image/jpeg;base64,' + response.data };
                 if (secilenButonName === strings.seninFotografin) {
                     console.log("secilenButonName===strings.seninFotografin a girdii");
-                    this.setState({ seninFotografin: { check: true, fotoPath: source.uri } });
+                    this.setState({ seninFotografin: { check: true, fotoPath: source } });
 
 
                 }
@@ -121,12 +121,13 @@ class Form extends Component {
     resimSecimButonuOlustur(buttonModel) {
         return (
             <TouchableOpacity onPress={() => this.openResimSecimModal(buttonModel.text)}>
+                {buttonModel.check ? <Image style={styles.resimStyle} source={buttonModel.fotoPath} /> :
 
-                {buttonModel.check ? <Image source={buttonModel.fotoPath} style={styles.resimStyle} /> :
                     <View style={styles.resimSecimButonu}>
-                        {buttonModel.check ? <Image source={buttonModel.fotoPath} /> : <Image style={{ alignItems: 'center', }} source={require("../img/add.png")} />}
+                         <Image style={{ alignItems: 'center', }} source={require("../img/add.png")} />
 
-                    </View>}
+                    </View>
+                }
                 <Text style={styles.resimSecimButonuText}>{buttonModel.text}</Text>
             </TouchableOpacity>
         );
