@@ -53,11 +53,11 @@ class Map extends Component {
                     }}
                 >
                     <MapView.Marker coordinate={this.state.origin} >
-                    <Image source={this.props.data.fotolar.kendi}  style={{height: 35, width:35 }} />
+                    <Image source={this.props.data.fotolar.kendi}  style={styles.marker} />
                         </MapView.Marker>
 
                     <MapView.Marker coordinate={this.state.destination} >
-                    <Image source={this.props.data.fotolar.sevdicek}  style={{height: 35, width:35 }} />
+                    <Image source={this.props.data.fotolar.sevdicek}  style={styles.marker} />
                     </MapView.Marker>
 
                     <MapViewDirections
@@ -66,7 +66,7 @@ class Map extends Component {
                         apikey={this.state.GOOGLE_MAPS_APIKEY}
                        // mode="DRIVING"
                         precision="high"
-                        strokeWidth={3}
+                        strokeWidth={6}
                         strokeColor="hotpink"
                       //  optimizeWaypoints={true}
                       //  waypoints={this.state.waypoints}
@@ -80,15 +80,19 @@ class Map extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        ...StyleSheet.absoluteFillObject,
-        height: 400,
-        width: 400,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
+        
+         flex:1,
+       //  ...StyleSheet.absoluteFillObject,
+        // height: 400,
+        // width: 400,
+        // justifyContent: 'flex-end',
+        // alignItems: 'center',
     },
     map: {
-        ...StyleSheet.absoluteFillObject,
+         flex:1,
+        // ...StyleSheet.absoluteFillObject,
     },
+    marker:{marginBottom:10,borderRadius:50, height: 35, width:35 }
 });
 
 export default Map;

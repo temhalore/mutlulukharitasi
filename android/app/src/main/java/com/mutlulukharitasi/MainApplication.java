@@ -7,6 +7,7 @@ import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalization;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import fr.greweb.reactnativeviewshot.RNViewShotPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
