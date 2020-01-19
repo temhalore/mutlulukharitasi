@@ -7,6 +7,7 @@ import MyButton from '../commons/MyButton';
 import { strings } from '../sabitler/Strings';
 
 import RNGooglePlaces from 'react-native-google-places';
+import { Actions } from 'react-native-router-flux';
 //böylede çekebilirdik aynı değişken isimleri direk eşleşir çünkü
 // const { width, height } = Dimensions.get("window");
 
@@ -17,8 +18,8 @@ const cihazHeight = Dimensions.get("window").height;
 class Form extends Component {
 
     state = {
-        konumunuzButton: { text: strings.konumunuz, check: false, longitude: 0, latitude: 0 },
-        sevdiceginKonumuButton: { text: strings.sevdiceginKonumu, check: false, longitude: 0, latitude: 0 },
+        konumunuzButton: { text: strings.konumunuz, check: false, longitude: 0, latitude: 0,placeObje:{} },
+        sevdiceginKonumuButton: { text: strings.sevdiceginKonumu, check: false, longitude: 0, latitude: 0,placeObje:{} },
         seninFotografin: { text: strings.seninFotografin, check: false, fotoPath: "" },
         sevdiceginFotografi: { text: strings.sevdiceginFotografi, check: false, fotoPath: "" },
     }
@@ -30,11 +31,11 @@ class Form extends Component {
                 console.log(place);
                 console.log("secilenButonName===strings.konumunuz = " + strings.konumunuz);
                 if (secilenButonName === strings.konumunuz) {
-                    this.setState({ konumunuzButton: { text: place.name, check: true, longitude: place.location.longitude, latitude: place.location.latitude } });
+                    this.setState({ konumunuzButton: { text: place.name, check: true, longitude: place.location.longitude, latitude: place.location.latitude,placeObje:place } });
 
                 }
                 if (secilenButonName === strings.sevdiceginKonumu) {
-                    this.setState({ sevdiceginKonumuButton: { text: place.name, check: true, longitude: place.location.longitude, latitude: place.location.latitude } });
+                    this.setState({ sevdiceginKonumuButton: { text: place.name, check: true, longitude: place.location.longitude, latitude: place.location.latitude,placeObje:place } });
                 }
                 console.log(this.state.konumunuzButton, this.state.sevdiceginKonumuButton);
                 // place represents user's selection from the
@@ -82,7 +83,7 @@ class Form extends Component {
                 // const source = { uri: 'data:image/jpeg;base64,' + response.data };
                 if (secilenButonName === strings.seninFotografin) {
                     console.log("secilenButonName===strings.seninFotografin a girdii");
-                    this.setState({ seninFotografin: { check: true, fotoPath: source } });
+                    this.setState({ seninFotografin: {text: strings.sevdiceginFotografi, check: true, fotoPath: source } });
 
 
                 }
@@ -121,7 +122,8 @@ class Form extends Component {
     resimSecimButonuOlustur(buttonModel) {
         return (
             <TouchableOpacity onPress={() => this.openResimSecimModal(buttonModel.text)}>
-                {buttonModel.check ? <Image style={styles.resimStyle} source={buttonModel.fotoPath} /> :
+                {buttonModel.check ? 
+                <Image style={styles.resimStyle} source={buttonModel.fotoPath} /> :
 
                     <View style={styles.resimSecimButonu}>
                          <Image style={{ alignItems: 'center', }} source={require("../img/add.png")} />
@@ -134,6 +136,14 @@ class Form extends Component {
     }
 
 
+    rotaOlustur(){
+
+if (this.state.konumunuzButton.placeObje===undefined) {
+    
+}
+
+        Actions.Map({data:{konumunuz:this.state.konumunuzButton,sevdiceginKonumu:this.state.sevdiceginKonumuButton}});
+    }
 
     render() {
         return (
@@ -148,8 +158,8 @@ class Form extends Component {
                     {this.resimSecimButonuOlustur(this.state.seninFotografin)}
                     {this.resimSecimButonuOlustur(this.state.sevdiceginFotografi)}
                 </View>
-
-                <MyButton text={strings.tarifButton}></MyButton>
+                {/* Actions.Map bu rooting yapısının bir metodududr propsarı buradandanda gonderebiliriz. buradki Map aslında root taki isimir.Key olarak alır */}
+                <MyButton onPress={()=> this.rotaOlustur()} text={strings.tarifButton}></MyButton>
 
             </ImageBackground>
 

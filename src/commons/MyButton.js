@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 
 //böylede çekebilirdik aynı değişken isimleri direk eşleşir çünkü
 // const { width, height } = Dimensions.get("window");
@@ -11,9 +11,10 @@ const cihazHeight = Dimensions.get("window").height;
 class MyButton extends Component {
     render() {
         return (
-            <View style={styles.viewStyle}>
+            // /onpress metodunu aslında dışarıdan props ile alacağız fonksiyon göndereceğiz buraya bu buttonu kullanığımız herhangi bir yerden
+            <TouchableOpacity style={styles.viewStyle} onPress={this.props.onPress}>
                 <Text style={styles.textStyle}>{this.props.text}</Text>
-            </View>
+            </TouchableOpacity>
         );
     }
 }
