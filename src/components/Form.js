@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { View, Text, ImageBackground, Dimensions, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, ImageBackground, Dimensions, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import MyButton from '../commons/MyButton';
 
@@ -18,8 +18,8 @@ const cihazHeight = Dimensions.get("window").height;
 class Form extends Component {
 
     state = {
-        konumunuzButton: { text: strings.konumunuz, check: false, longitude: 0, latitude: 0,placeObje:{} },
-        sevdiceginKonumuButton: { text: strings.sevdiceginKonumu, check: false, longitude: 0, latitude: 0,placeObje:{} },
+        konumunuzButton: { text: strings.konumunuz, check: false, longitude: 0, latitude: 0, placeObje: {} },
+        sevdiceginKonumuButton: { text: strings.sevdiceginKonumu, check: false, longitude: 0, latitude: 0, placeObje: {} },
         seninFotografin: { text: strings.seninFotografin, check: false, fotoPath: "" },
         sevdiceginFotografi: { text: strings.sevdiceginFotografi, check: false, fotoPath: "" },
     }
@@ -31,11 +31,11 @@ class Form extends Component {
                 console.log(place);
                 console.log("secilenButonName===strings.konumunuz = " + strings.konumunuz);
                 if (secilenButonName === strings.konumunuz) {
-                    this.setState({ konumunuzButton: { text: place.name, check: true, longitude: place.location.longitude, latitude: place.location.latitude,placeObje:place } });
+                    this.setState({ konumunuzButton: { text: place.name, check: true, longitude: place.location.longitude, latitude: place.location.latitude, placeObje: place } });
 
                 }
                 if (secilenButonName === strings.sevdiceginKonumu) {
-                    this.setState({ sevdiceginKonumuButton: { text: place.name, check: true, longitude: place.location.longitude, latitude: place.location.latitude,placeObje:place } });
+                    this.setState({ sevdiceginKonumuButton: { text: place.name, check: true, longitude: place.location.longitude, latitude: place.location.latitude, placeObje: place } });
                 }
                 console.log(this.state.konumunuzButton, this.state.sevdiceginKonumuButton);
                 // place represents user's selection from the
@@ -83,7 +83,7 @@ class Form extends Component {
                 // const source = { uri: 'data:image/jpeg;base64,' + response.data };
                 if (secilenButonName === strings.seninFotografin) {
                     console.log("secilenButonName===strings.seninFotografin a girdii");
-                    this.setState({ seninFotografin: {text: strings.sevdiceginFotografi, check: true, fotoPath: source } });
+                    this.setState({ seninFotografin: { text: strings.sevdiceginFotografi, check: true, fotoPath: source } });
 
 
                 }
@@ -122,11 +122,11 @@ class Form extends Component {
     resimSecimButonuOlustur(buttonModel) {
         return (
             <TouchableOpacity onPress={() => this.openResimSecimModal(buttonModel.text)}>
-                {buttonModel.check ? 
-                <Image style={styles.resimStyle} source={buttonModel.fotoPath} /> :
+                {buttonModel.check ?
+                    <Image style={styles.resimStyle} source={buttonModel.fotoPath} /> :
 
                     <View style={styles.resimSecimButonu}>
-                         <Image style={{ alignItems: 'center', }} source={require("../img/add.png")} />
+                        <Image style={{ alignItems: 'center', }} source={require("../img/add.png")} />
 
                     </View>
                 }
@@ -136,13 +136,29 @@ class Form extends Component {
     }
 
 
-    rotaOlustur(){
+    rotaOlustur() {
+        console.log('rota olştur');
+        if (this.state.konumunuzButton.longitude === 0) {
+            console.log('this.state.konumunuzButton.placeObje');
+            Alert.alert(
+                'Konumunuzu seçmediniz!!'
+            )
+            return;
+        }
+        if (this.state.sevdiceginKonumuButton.longitude === 0) {
+            Alert.alert(
+                'Sevdiceğinizin Konumunu seçmediniz!!'
+            )
+            return;
+        }
+        
 
-if (this.state.konumunuzButton.placeObje===undefined) {
-    
-}
-
-        Actions.Map({data:{konumunuz:this.state.konumunuzButton,sevdiceginKonumu:this.state.sevdiceginKonumuButton}});
+        Actions.Map({ 
+            data: { 
+            konumunuz: this.state.konumunuzButton, 
+            sevdiceginKonumu: this.state.sevdiceginKonumuButton ,
+            fotolar:{kendi:this.state.seninFotografin.fotoPath,sevdicek:this.state.sevdiceginFotografi.fotoPath},
+        } });
     }
 
     render() {
@@ -159,7 +175,7 @@ if (this.state.konumunuzButton.placeObje===undefined) {
                     {this.resimSecimButonuOlustur(this.state.sevdiceginFotografi)}
                 </View>
                 {/* Actions.Map bu rooting yapısının bir metodududr propsarı buradandanda gonderebiliriz. buradki Map aslında root taki isimir.Key olarak alır */}
-                <MyButton onPress={()=> this.rotaOlustur()} text={strings.tarifButton}></MyButton>
+                <MyButton onPress={() => this.rotaOlustur()} text={strings.tarifButton}></MyButton>
 
             </ImageBackground>
 
