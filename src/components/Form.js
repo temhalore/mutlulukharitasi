@@ -138,19 +138,19 @@ class Form extends Component {
 
     rotaOlustur() {
         console.log('rota olştur');
-        if (this.state.konumunuzButton.longitude === 0) {
-            console.log('this.state.konumunuzButton.placeObje');
-            Alert.alert(
-                'Konumunuzu seçmediniz!!'
-            )
-            return;
-        }
-        if (this.state.sevdiceginKonumuButton.longitude === 0) {
-            Alert.alert(
-                'Sevdiceğinizin Konumunu seçmediniz!!'
-            )
-            return;
-        }
+        // if (this.state.konumunuzButton.longitude === 0) {
+        //     console.log('this.state.konumunuzButton.placeObje');
+        //     Alert.alert(
+        //         'Konumunuzu seçmediniz!!'
+        //     )
+        //     return;
+        // }
+        // if (this.state.sevdiceginKonumuButton.longitude === 0) {
+        //     Alert.alert(
+        //         'Sevdiceğinizin Konumunu seçmediniz!!'
+        //     )
+        //     return;
+        // }
         
 
         Actions.Map({ 
