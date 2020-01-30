@@ -1,7 +1,6 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable prettier/prettier */
 import React, {Component} from 'react';
-import _BaseComponent from './_BaseComponent';
 import { ImageBackground, Dimensions, StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native';
 import Draggable from 'react-native-draggable';
 import Statik from '../sabitler/Statik';
@@ -12,7 +11,7 @@ const cihazHeight = Dimensions.get("window").height;
 
 
 
-class Paylas extends _BaseComponent {
+class Paylas extends Component {
     render() {
         console.log("rendere girdi");
         console.log("sonuc:",Statik.genislikAyarla(30));
@@ -100,7 +99,7 @@ const styles = StyleSheet.create({
         // ...StyleSheet.absoluteFillObject, //bu sabit bir style dır full scrren yapar ve bunun üzerine nesne gelmeini sağlar.
         // flex: 1,
         backgroundColor: 'orange',
-        height: Statik.yukseklikAyarla(50),
+        height: 50,
         width: 200,
         marginBottom: 10,
         marginTop: 10,
