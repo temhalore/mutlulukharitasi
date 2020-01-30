@@ -1,6 +1,9 @@
+/* eslint-disable prettier/prettier */
 import React, { Component, } from 'react'
 import { ImageBackground, Dimensions, StyleSheet ,TouchableOpacity,View,Image} from 'react-native';
 import Draggable from 'react-native-draggable';
+import { captureScreen } from "react-native-view-shot";
+import { Actions } from 'react-native-router-flux';
 
 const cihazWidth = Dimensions.get("window").width;
 const cihazHeight = Dimensions.get("window").height;
@@ -11,22 +14,20 @@ class Sonuc extends Component {
 
     onayla() {
         console.log('onaylaya basıldı...');
-        // captureScreen({
-        //     format: "jpg",
-        //     quality: 0.8,
-        // }).then(
-        //     uri => {
-        //         console.log("uriiii:", uri);
-        //         Actions.Sonuc({ 
-        //             data: { 
-        //             imageUri: uri, 
-        //             kendi:this.props.data.fotolar.kendi,
-        //             sevdicek:this.props.data.fotolar.sevdicek
-        //                    } });
-        //     }
-        //     ,
-        //     error => console.error("Oops, snapshot failed", error)
-        // );
+        captureScreen({
+            format: "jpg",
+            quality: 0.8,
+        }).then(
+            uri => {
+                console.log("uriiii:", uri);
+                Actions.Paylas({ 
+                    data: { 
+                    imageUri: uri,
+                           } });
+            }
+            ,
+            error => console.error("Oops, snapshot failed", error)
+        );
     }
 
     render() {
