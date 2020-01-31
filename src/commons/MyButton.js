@@ -8,12 +8,16 @@ import { View, Text, Dimensions, StyleSheet, TouchableOpacity } from 'react-nati
 const cihazWidth = Dimensions.get("window").width;
 const cihazHeight = Dimensions.get("window").height;
 
+//{StyleSheet.flatten([styles.viewStyle,this.props.addStyle])} bu kısım butonu oluştuduğumuz
+// yerde istersek gönderdiğimiz sitillerle şuanda var olan sitilleriezmemizi sağlayacak örneğin 
+//butonu mavi renk istersek bacraudr u mavi gönderirsek turuncu ezilecek
+
 class MyButton extends Component {
     render() {
         return (
             // /onpress metodunu aslında dışarıdan props ile alacağız fonksiyon göndereceğiz buraya bu buttonu kullanığımız herhangi bir yerden
-            <TouchableOpacity style={styles.viewStyle} onPress={this.props.onPress}>
-                <Text style={styles.textStyle}>{this.props.text}</Text>
+            <TouchableOpacity style={StyleSheet.flatten([styles.viewStyle,this.props.addStyle])} onPress={this.props.onPress}>
+                <Text style={styles.textStyle }>{this.props.text}</Text>
             </TouchableOpacity>
         );
     }

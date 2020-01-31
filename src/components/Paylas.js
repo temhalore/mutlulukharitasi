@@ -1,35 +1,48 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable prettier/prettier */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { ImageBackground, Dimensions, StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native';
 import Draggable from 'react-native-draggable';
 import Statik from '../sabitler/Statik';
+import MyButton from '../commons/MyButton';
 
-
-const cihazWidth = Dimensions.get("window").width;
-const cihazHeight = Dimensions.get("window").height;
+import { strings } from '../sabitler/Strings';
 
 
 
 class Paylas extends Component {
+
+    resmiPaylas(){
+        console.log("resmi paylaş a basıldı");
+    }
+    uygulamayiPaylas(){
+        console.log("uygulamayı paylaş a basıldı");
+    }
+
     render() {
         console.log("rendere girdi");
-        console.log("sonuc:",Statik.genislikAyarla(30));
+
         return (
             <View style={styles.contanier}>
                 <Image style={styles.logoView} source={require("../img/logo.png")} />
-                <View style={styles.contanier}>
+                <View style={styles.contanier} >
                     <View style={styles.paylasView}>
-                        <View style={styles.buttonView}>
+                    <MyButton addStyle ={styles.buttonView} onPress={() => this.resmiPaylas()} text={strings.resmiPaylas}></MyButton>
+                    <MyButton addStyle ={styles.buttonView} onPress={() => this.uygulamayiPaylas()} text={strings.uygulamaPaylas}></MyButton>
+                        {/* <View style={styles.buttonView}>
 
                         </View>
                         <View style={styles.buttonView}>
-                            <Text>cihazHeight : {cihazHeight} - cihazWidth:{cihazWidth} -- {Statik.TASARIM_HEIGTH} </Text>
-                        </View>
+                            <Text>cihazHeight : {Statik.CIHAZ_HEIGTH} - cihazWidth:{Statik.CIHAZ_WIDHT} -- {Statik.TASARIM_HEIGTH} </Text>
+                        </View> */}
                     </View>
-                    <View style={styles.resimView}>
 
-                    </View>
+                    {this.props.data === undefined ? 
+                    <Image style={styles.resimView} source={require("../img/logo.png")} /> 
+                    : 
+                    <Image style={styles.resimView} source={{ uri: this.props.data.imageUri }}/>
+                    }
+
 
                 </View>
             </View>
@@ -99,8 +112,6 @@ const styles = StyleSheet.create({
         // ...StyleSheet.absoluteFillObject, //bu sabit bir style dır full scrren yapar ve bunun üzerine nesne gelmeini sağlar.
         // flex: 1,
         backgroundColor: 'orange',
-        height: 50,
-        width: 200,
         marginBottom: 10,
         marginTop: 10,
         borderRadius: 10,

@@ -11,6 +11,8 @@ export const strings = new LocalizedStrings({
     seninFotografin:"your photo",
     sevdiceginFotografi : "her photo",
     tarifButton : "get maps create",
+    uygulamaPaylas : "share app",
+    resmiPaylas : "shareimage",
  },
  tr:{
      konumunuz:"konumunuz str",
@@ -18,5 +20,7 @@ export const strings = new LocalizedStrings({
      seninFotografin:"Senin fotoğrafın",
     sevdiceginFotografi : "sevdiceğinin fotoğrafı",
     tarifButton : "yol tarifi al",
+    uygulamaPaylas : "uygulamayı paylaş",
+    resmiPaylas : "resmi paylaş",
  },
 });
